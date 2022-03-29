@@ -1,0 +1,25 @@
+apiVersion: v1
+entries:
+  service-a:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-03-29T07:28:48.270830745Z"
+    description: A Helm chart for Kubernetes
+    digest: 493f6e269b8991ff6173db48d7d18e672f0d91ff02a06368dcc2153b803dcf66
+    name: service-a
+    type: application
+    urls:
+    - https://cciobanu98.github.io/poc-k8s-eventbus-apps/service-a-0.1.0.tgz
+    version: 0.1.0
+  service-b:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-03-29T07:28:48.271377451Z"
+    description: A Helm chart for Kubernetes
+    digest: 5932ea6667a255042d1eecb4cdcfa83db5156cfd0bbaac40c953315c550e6e71
+    name: service-b
+    type: application
+    urls:
+    - https://cciobanu98.github.io/poc-k8s-eventbus-apps/service-b-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-03-29T07:28:48.270147138Z"
