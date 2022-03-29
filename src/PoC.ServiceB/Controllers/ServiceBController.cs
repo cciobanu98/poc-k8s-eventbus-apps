@@ -33,7 +33,7 @@ namespace PoC.ServiceB.Controllers
             _logger.LogInformation(@event.Message);
         }
 
-        [HttpGet]
+        [HttpGet("messages")]
         public async Task<ActionResult<IEnumerable<string>>> GetMessages() => Ok(Messages);
     }
 }

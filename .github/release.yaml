@@ -1,4 +1,4 @@
-name: Release menu
+name: Release
 
 on:
   push:
