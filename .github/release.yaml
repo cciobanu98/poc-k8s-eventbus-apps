@@ -22,7 +22,7 @@ jobs:
         id: meta-service-a
         uses: docker/metadata-action@v3
         with:
-          images: cciobanu98/menu-service
+          images: cciobanu98/poc-service-a
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
@@ -37,7 +37,7 @@ jobs:
         id: meta-service-b
         uses: docker/metadata-action@v3
         with:
-          images: cciobanu98/menu-service
+          images: cciobanu98/poc-service-b
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
