@@ -8,7 +8,8 @@ namespace PoC.ServiceA.Controllers
     [Route("service-a")]
     public class ServiceAController : ControllerBase
     {
-        private const string DAPR_PUBSUB_NAME = "pubsub";
+        private const string DAPR_PUBSUB_NAME_A = "pubsubA";
+        private const string DAPR_PUBSUB_NAME_B = "pubsubB";
         private readonly IEventBus _eventBus;
         private readonly ILogger<ServiceAController> _logger;
         private IList<string> Messages = new List<string>();
@@ -18,15 +19,15 @@ namespace PoC.ServiceA.Controllers
             _logger = logger;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> SendMessageA()
+        [HttpPost("to-b")]
+        public async Task<ActionResult> SendMessageAToQueueB()
         {
-            await _eventBus.PublishAsync(new MessageA("Message from service A"));
+            await _eventBus.PublishAsync(new MessageA("Message from service A"), DAPR_PUBSUB_NAME_B);
             return Ok();
         }
 
         [HttpPost("MessageB")]
-        [Topic(DAPR_PUBSUB_NAME, nameof(MessageB))]
+        [Topic(DAPR_PUBSUB_NAME_A, nameof(MessageB))]
         public async Task HandleAsync(MessageB @event)
         {
             Messages.Add(@event.Message);

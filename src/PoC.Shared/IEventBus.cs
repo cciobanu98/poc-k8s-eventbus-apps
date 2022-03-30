@@ -2,6 +2,6 @@
 {
     public interface IEventBus
     {
-        Task PublishAsync(IntegrationEvent integrationEvent);
+        Task PublishAsync(IntegrationEvent integrationEvent, string pubsubName = "pubsub");
     }
 }
