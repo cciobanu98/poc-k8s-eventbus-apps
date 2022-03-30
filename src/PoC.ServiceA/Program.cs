@@ -17,6 +17,8 @@ app.UseSwaggerUI();
 
 app.UseAuthorization();
 
+app.UseCloudEvents();
 app.MapControllers();
+app.MapSubscribeHandler();
 
 app.Run();
