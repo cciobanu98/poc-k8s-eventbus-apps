@@ -61,6 +61,7 @@ jobs:
           labels: ${{ steps.meta-service-b.outputs.labels }}
 
   release:
+    needs: [service-a, service-b]
     runs-on: ubuntu-latest
     steps:
       - name: Publish helm menu chart
