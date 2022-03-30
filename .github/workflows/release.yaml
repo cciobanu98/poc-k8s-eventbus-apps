@@ -64,6 +64,9 @@ jobs:
     needs: [service-a, service-b]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
       - name: Publish helm menu chart
         uses: stefanprodan/helm-gh-pages@master
         with:
