@@ -8,8 +8,8 @@ namespace PoC.ServiceB.Controllers
     [Route("service-b")]
     public class ServiceBController : ControllerBase
     {
-        private const string DAPR_PUBSUB_NAME_A = "pubsubA";
-        private const string DAPR_PUBSUB_NAME_B = "pubsubB";
+        private const string DAPR_PUBSUB_NAME_A = "pubsuba";
+        private const string DAPR_PUBSUB_NAME_B = "pubsubb";
         private readonly IEventBus _eventBus;
         private readonly ILogger<ServiceBController> _logger;
         private IList<string> Messages = new List<string>();
