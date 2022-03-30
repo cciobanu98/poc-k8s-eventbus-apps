@@ -32,6 +32,7 @@ jobs:
           push: true
           tags: ${{ steps.meta-service-a.outputs.tags }}
           labels: ${{ steps.meta-service-a.outputs.labels }}
+          no-cache: true
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta-service-b
