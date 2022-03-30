@@ -43,7 +43,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           file: src/PoC.ServiceB/Dockerfile
-          context: .
+          context: src
           push: true
           tags: ${{ steps.meta-service-b.outputs.tags }}
           labels: ${{ steps.meta-service-b.outputs.labels }}
