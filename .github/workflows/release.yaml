@@ -32,7 +32,8 @@ jobs:
           push: true
           tags: ${{ steps.meta-service-a.outputs.tags }}
           labels: ${{ steps.meta-service-a.outputs.labels }}
-          no-cache: true
+          cache-from: type=local,src=/service-a
+          cache-to: type=local,src=/service-a
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta-service-b
@@ -48,7 +49,8 @@ jobs:
           push: true
           tags: ${{ steps.meta-service-b.outputs.tags }}
           labels: ${{ steps.meta-service-b.outputs.labels }}
-          no-cache: true
+          cache-from: type=local,src=/service-b
+          cache-to: type=local,src=/service-b
 
       - name: Publish helm menu chart
         uses: stefanprodan/helm-gh-pages@master
