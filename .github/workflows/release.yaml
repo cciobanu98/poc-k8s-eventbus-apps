@@ -47,6 +47,7 @@ jobs:
           push: true
           tags: ${{ steps.meta-service-b.outputs.tags }}
           labels: ${{ steps.meta-service-b.outputs.labels }}
+          no-cache: true
 
       - name: Publish helm menu chart
         uses: stefanprodan/helm-gh-pages@master
