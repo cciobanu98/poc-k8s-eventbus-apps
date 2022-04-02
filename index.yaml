@@ -1,5 +1,16 @@
 apiVersion: v1
 entries:
+  operator:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-04-02T15:41:12.294297898Z"
+    description: A Helm chart for Kubernetes
+    digest: 16a9527073b09bd4c03590f1929da92d50bd2d5c8de133a28da38034cb7708d2
+    name: operator
+    type: application
+    urls:
+    - https://cciobanu98.github.io/poc-k8s-eventbus-apps/operator-0.1.0.tgz
+    version: 0.1.0
   service-a:
   - apiVersion: v2
     appVersion: 1.16.0
@@ -22,4 +33,15 @@ entries:
     urls:
     - https://cciobanu98.github.io/poc-k8s-eventbus-apps/service-b-0.1.0.tgz
     version: 0.1.0
-generated: "2022-03-30T10:58:22.604745583Z"
+  tenant:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2022-04-02T15:41:12.295076398Z"
+    description: A Helm chart for Kubernetes
+    digest: 49b559bc2f3c5285558277d4267721a0e285a4cd4d5eb6a33e4067d13d019ca2
+    name: tenant
+    type: application
+    urls:
+    - https://cciobanu98.github.io/poc-k8s-eventbus-apps/tenant-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-04-02T15:41:12.292552097Z"
