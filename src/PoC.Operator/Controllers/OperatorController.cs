@@ -6,72 +6,34 @@ namespace PoC.Operator.Controllers
 {
     [ApiController]
     [Route("operator")]
-    public class OperatorController : ControllerBase
+    public class OperatorController : SharedController
     {
-        private const string DAPR_PUBSUB_NAME_A = "pubsuba";
-        private const string DAPR_PUBSUB_NAME_B = "pubsubb";
-        private const string DAPR_PUBSUB_NAME_C = "pubsubc";
-        private const string DAPR_PUBSUB_NAME_D = "pubsubd";
+        private readonly IStore _store;
         private readonly IEventBus _eventBus;
         private readonly ILogger<OperatorController> _logger;
-        private readonly IStore _store;
-        public OperatorController(IEventBus eventBus, ILogger<OperatorController> logger, IStore store)
+        private const string DAPR_PUBSUB_NAME = "pubsub";
+
+        public OperatorController(IStore store, IEventBus eventBus, ILogger<OperatorController> logger) : base(store)
         {
+            _store = store;
             _eventBus = eventBus;
             _logger = logger;
-            _store = store;
         }
 
-        [HttpPost("send-operator-message-to-queue-a")]
-        public async Task<ActionResult> SendOperatorMessageToQueueA(string message)
+        [HttpPost("send-operator-message")]
+        public async Task<ActionResult> SendOperatorMessageAsync(string message)
         {
-            await _eventBus.PublishAsync(new OperatorIntegrationEvent(message), DAPR_PUBSUB_NAME_A);
+            await _eventBus.PublishAsync(new OperatorIntegrationEvent(message), DAPR_PUBSUB_NAME);
             return Ok();
         }
 
-        [HttpPost("send-operator-message-to-queue-c")]
-        public async Task<ActionResult> SendOperatorMessageToQueueC(string message)
-        {
-            await _eventBus.PublishAsync(new OperatorIntegrationEvent(message), DAPR_PUBSUB_NAME_C);
-            return Ok();
-        }
-
-        [HttpPost("send-operator-message-to-queue-d")]
-        public async Task<ActionResult> SendOperatorMessageToQueueD(string message)
-        {
-            await _eventBus.PublishAsync(new OperatorIntegrationEvent(message), DAPR_PUBSUB_NAME_D);
-            return Ok();
-        }
-
-        [HttpGet("get-messages")]
-        public ActionResult<IEnumerable<string>> GetMessages() => Ok(_store.GetAll());
-
-        [HttpPost("clear")]
-        public void Clear() => _store.Clear();
-
-
-        [HttpPost("GetTenantIntegrationEventFromB")]
-        [Topic(DAPR_PUBSUB_NAME_B, nameof(TenantIntegrationEvent))]
-        public async Task HandleAsyncB(TenantIntegrationEvent @event)
+        [HttpPost("TenantIntegrationEvent")]
+        [Topic(DAPR_PUBSUB_NAME, nameof(TenantIntegrationEvent))]
+        public void Handle(TenantIntegrationEvent @event)
         {
             _store.Add(@event.Message);
             _logger.LogInformation(@event.Message);
         }
 
-        [HttpPost("GetTenantIntegrationEventFromC")]
-        [Topic(DAPR_PUBSUB_NAME_C, nameof(TenantIntegrationEvent))]
-        public async Task HandleAsyncC(TenantIntegrationEvent @event)
-        {
-            _store.Add(@event.Message);
-            _logger.LogInformation(@event.Message);
-        }
-
-        [HttpPost("GetTenantIntegrationEventFromD")]
-        [Topic(DAPR_PUBSUB_NAME_D, nameof(TenantIntegrationEvent))]
-        public async Task HandleAsyncD(TenantIntegrationEvent @event)
-        {
-            _store.Add(@event.Message);
-            _logger.LogInformation(@event.Message);
-        }
     }
 }
