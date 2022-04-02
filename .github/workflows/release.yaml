@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  service-a:
+  operator:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -19,21 +19,21 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PAT }}
 
       - name: Extract metadata (tags, labels) for Docker
-        id: meta-service-a
+        id: meta-operator
         uses: docker/metadata-action@v3
         with:
-          images: cciobanu98/poc-service-a
+          images: cciobanu98/poc-operator
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          file: src/PoC.ServiceA/Dockerfile
+          file: src/PoC.Operator/Dockerfile
           context: src
           push: true
-          tags: ${{ steps.meta-service-a.outputs.tags }}
-          labels: ${{ steps.meta-service-a.outputs.labels }}
+          tags: ${{ steps.meta-operator.outputs.tags }}
+          labels: ${{ steps.meta-operator.outputs.labels }}
 
-  service-b:
+  tenant:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -46,28 +46,28 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PAT }}
 
       - name: Extract metadata (tags, labels) for Docker
-        id: meta-service-b
+        id: meta-tenant
         uses: docker/metadata-action@v3
         with:
-          images: cciobanu98/poc-service-b
+          images: cciobanu98/poc-tenant
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
-          file: src/PoC.ServiceB/Dockerfile
+          file: src/PoC.Tenant/Dockerfile
           context: src
           push: true
-          tags: ${{ steps.meta-service-b.outputs.tags }}
-          labels: ${{ steps.meta-service-b.outputs.labels }}
+          tags: ${{ steps.meta-tenant.outputs.tags }}
+          labels: ${{ steps.meta-tenant.outputs.labels }}
 
   release:
-    needs: [service-a, service-b]
+    needs: [operator, tenant]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Publish helm menu chart
+      - name: Publish helm charts
         uses: stefanprodan/helm-gh-pages@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
